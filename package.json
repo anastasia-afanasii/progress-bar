@@ -1,6 +1,18 @@
 {
   "name": "progress-bar",
   "version": "0.1.0",
-  "private": true,
-  "description": "WeWeb custom Progress Bar component (percent / timer / countdown / indeterminate / stepped)."
+  "description": "Universal Progress Bar for WeWeb — percent / timer / countdown / indeterminate / stepped modes.",
+  "license": "MIT",
+  "author": "Anastasia Afanasii <nasteaafanasii@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anastasia-afanasii/progress-bar.git"
+  },
+  "scripts": {
+    "build": "weweb build",
+    "serve": "weweb serve"
+  },
+  "devDependencies": {
+    "@weweb/cli": "latest"
+  }
 }
