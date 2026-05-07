@@ -1,0 +1,6 @@
+{
+  "name": "progress-bar",
+  "version": "0.1.0",
+  "private": true,
+  "description": "WeWeb custom Progress Bar component (percent / timer / countdown / indeterminate / stepped)."
+}
