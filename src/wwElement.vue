@@ -1,10 +1,12 @@
 <template>
   <div class="progress-bar" :style="containerStyle">
 
-    <!-- Header (label + value) -->
-    <div v-if="showHeader.value" class="pb-header" :style="headerStyle">
-      <span v-if="label.value" class="pb-label" :style="labelStyle">{{ label.value }}</span>
-      <span v-if="showValue.value" class="pb-value" :style="valueStyle">{{ formattedValue }}</span>
+    <!-- Header (label + value).
+         NOTE: Vue 3 auto-unwraps refs in templates — never write `.value`
+         on a ref returned from setup(). Use the bare name. -->
+    <div v-if="showHeader" class="pb-header" :style="headerStyle">
+      <span v-if="label" class="pb-label" :style="labelStyle">{{ label }}</span>
+      <span v-if="showValue" class="pb-value" :style="valueStyle">{{ formattedValue }}</span>
     </div>
 
     <!-- Track -->
@@ -12,9 +14,9 @@
       <div
         class="pb-fill"
         :class="{
-          'pb-fill--indeterminate': workingMode.value === 'indeterminate',
-          'pb-fill--striped':       striped.value,
-          'pb-fill--striped-anim':  striped.value && stripeAnimated.value && workingMode.value !== 'indeterminate',
+          'pb-fill--indeterminate': workingMode === 'indeterminate',
+          'pb-fill--striped':       striped,
+          'pb-fill--striped-anim':  striped && stripeAnimated && workingMode !== 'indeterminate',
         }"
         :style="fillStyle"
       ></div>
