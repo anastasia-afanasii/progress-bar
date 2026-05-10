@@ -73,7 +73,7 @@ Style:
 - `start`: Starts a timer or countdown from its initial value. Has no effect in non-timer modes.
 - `pause`: Freezes a running timer/countdown at its current visual position.
 - `resume`: Resumes a paused timer/countdown over the remaining duration.
-- `reset`: Stops any running animation and snaps the bar back to its starting state.
+- `reset`: Stops any running animation and snaps the bar back to its starting state. Does NOT auto-restart, even when `autoStart` is on — call `start()` afterwards to restart.
 - `setValue`: Imperatively set the bar to a value 0–100. Args: `value` (number).
 - `nextStep`: Advance to the next step (stepped mode). No args.
 - `prevStep`: Go back to the previous step (stepped mode). No args.

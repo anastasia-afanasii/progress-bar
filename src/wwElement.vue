@@ -247,22 +247,46 @@ export default {
 
     const setValue = (n) => applyStaticValue(clamp01_100(n));
 
+    // Internal step counter for `stepped` mode. Avoids rounding errors that
+    // would accumulate if we re-derived the step from displayValue every time
+    // (the displayValue can be in flight during a CSS transition).
+    const currentStepInternal = ref(0);
+
     const goToStep = (n) => {
       const total = Math.max(1, steps.value);
       const next  = Math.max(0, Math.min(total, Math.round(Number(n) || 0)));
+      currentStepInternal.value = next;
       applyStaticValue((next / total) * 100);
     };
-    const nextStep = () => goToStep(Math.round((displayValue.value / 100) * Math.max(1, steps.value)) + 1);
-    const prevStep = () => goToStep(Math.round((displayValue.value / 100) * Math.max(1, steps.value)) - 1);
+    const nextStep = () => goToStep(currentStepInternal.value + 1);
+    const prevStep = () => goToStep(currentStepInternal.value - 1);
 
     // ── React to prop changes ─────────────────────────────────────────────
     // For percent / stepped, mirror the bound value into displayValue.
     // For timer/countdown, prop changes do NOT auto-restart — the workflow
     // controls the lifecycle via start()/pause()/reset().
+    // `flush: 'post'` makes this watcher fire AFTER any same-tick workingMode
+    // watcher, avoiding a race where both fire and emit `change` spuriously.
     watch(staticTarget, (v) => {
       if (isTimerMode() || workingMode.value === "indeterminate") return;
+      // Skip if displayValue is already at the target — prevents spurious
+      // `change` emits when workingMode flips into a static mode.
+      if (Math.abs(displayValue.value - v) < 0.01) return;
       applyStaticValue(v);
-    });
+    }, { flush: "post" });
+
+    // Keep currentStepInternal in sync with the bound currentStep / steps
+    // props for `stepped` mode. Fires immediately to seed the initial value.
+    watch(
+      () => [workingMode.value, currentStep.value, steps.value],
+      () => {
+        if (workingMode.value === "stepped") {
+          const total = Math.max(1, steps.value);
+          currentStepInternal.value = Math.max(0, Math.min(total, currentStep.value));
+        }
+      },
+      { immediate: true },
+    );
 
     // When workingMode flips at runtime, reset to a sane state.
     watch(workingMode, () => {
