@@ -9,8 +9,21 @@
       <span v-if="showValue" class="pb-value" :style="valueStyle">{{ formattedValue }}</span>
     </div>
 
-    <!-- Track -->
-    <div class="pb-track" :style="trackStyle">
+    <!-- Track. ARIA attrs make this announceable by screen readers.
+         In indeterminate mode we drop aria-valuenow (per spec) and set
+         aria-busy=true so screen readers announce the loading state.
+         Vue drops `null` attrs reliably; `undefined` can serialize to
+         the literal string "undefined" in some builds, so we use null. -->
+    <div
+      class="pb-track"
+      :style="trackStyle"
+      role="progressbar"
+      :aria-label="label || 'Progress'"
+      :aria-valuemin="0"
+      :aria-valuemax="100"
+      :aria-valuenow="workingMode === 'indeterminate' ? null : Math.round(displayValue)"
+      :aria-busy="workingMode === 'indeterminate' ? 'true' : null"
+    >
       <div
         class="pb-fill"
         :class="{
@@ -254,7 +267,11 @@ export default {
     // (the displayValue can be in flight during a CSS transition).
     const currentStepInternal = ref(0);
 
+    // Step actions only act in `stepped` mode. Calling them in
+    // percent/timer/countdown/indeterminate is a no-op so the workflow
+    // can wire them up universally without leaking into the wrong mode.
     const goToStep = (n) => {
+      if (workingMode.value !== "stepped") return;
       const total = Math.max(1, steps.value);
       const next  = Math.max(0, Math.min(total, Math.round(Number(n) || 0)));
       currentStepInternal.value = next;
@@ -452,6 +469,7 @@ export default {
       striped,
       stripeAnimated,
       formattedValue,
+      displayValue,
       // styles
       containerStyle,
       headerStyle,

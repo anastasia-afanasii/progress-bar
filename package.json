@@ -13,6 +13,6 @@
     "serve": "weweb serve"
   },
   "devDependencies": {
-    "@weweb/cli": "latest"
+    "@weweb/cli": "^3.8.13"
   }
 }
