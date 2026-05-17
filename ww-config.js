@@ -10,7 +10,7 @@ export default {
       type: "TextSelect",
       section: "settings",
       bindable: true,
-      defaultValue: "percent",
+      defaultValue: "timer",
       options: {
         options: [
           { value: "percent",       label: "Percent (manual value)" },
@@ -24,7 +24,7 @@ export default {
       propertyHelp: { tooltip: "How the progress bar advances. percent: bind value 0-100 yourself. timer/countdown: animate over duration. indeterminate: looping animation. stepped: N steps." },
       /* wwEditor:end */
     },
-
+ 
     // ── Percent mode ───────────────────────────────────────────────────────
     value: {
       label: { en: "Value (0–100)" },
@@ -45,8 +45,8 @@ export default {
       type: "Number",
       section: "settings",
       bindable: true,
-      defaultValue: 5000,
-      options: { min: 100, max: 600000, step: 100, defaultValue: 5000 },
+      defaultValue: 4000,
+      options: { min: 100, max: 600000, step: 100, defaultValue: 4000 },
       /* wwEditor:start */
       propertyHelp: { tooltip: "Used in 'timer' and 'countdown' modes. Total time in milliseconds for the bar to fill (or empty)." },
       /* wwEditor:end */
@@ -116,7 +116,7 @@ export default {
       type: "Text",
       section: "settings",
       bindable: true,
-      defaultValue: "Progress",
+      defaultValue: "Processing...",
       /* wwEditor:start */
       options: { placeholder: "Progress" },
       /* wwEditor:end */
@@ -212,7 +212,7 @@ export default {
       type: "Color",
       section: "style",
       bindable: true,
-      defaultValue: "#EDEFF3",
+      defaultValue: "#E2E8F0",
     },
 
     // ── Style: fill ────────────────────────────────────────────────────────
@@ -221,7 +221,7 @@ export default {
       type: "Color",
       section: "style",
       bindable: true,
-      defaultValue: "#2B7FFF",
+      defaultValue: "#155DFC",
     },
 
     useGradient: {
@@ -268,7 +268,7 @@ export default {
       type: "Color",
       section: "style",
       bindable: true,
-      defaultValue: "#90A1B9",
+      defaultValue: "#62748E",
     },
 
     labelFontSize: {
@@ -285,7 +285,7 @@ export default {
       type: "TextSelect",
       section: "style",
       bindable: true,
-      defaultValue: "400",
+      defaultValue: "500",
       options: {
         options: [
           { value: "400", label: "Normal (400)" },
@@ -313,7 +313,7 @@ export default {
       type: "Color",
       section: "style",
       bindable: true,
-      defaultValue: "#2B7FFF",
+      defaultValue: "#155DFC",
     },
 
     valueFontSize: {
@@ -330,7 +330,7 @@ export default {
       type: "TextSelect",
       section: "style",
       bindable: true,
-      defaultValue: "600",
+      defaultValue: "500",
       options: {
         options: [
           { value: "400", label: "Normal (400)" },

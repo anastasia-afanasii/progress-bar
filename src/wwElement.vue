@@ -55,16 +55,16 @@ export default {
     const pN = (key, fallback) => computed(() => props.content?.[key] || fallback);
 
     // ── Settings ──────────────────────────────────────────────────────────
-    const workingMode        = p("workingMode", "percent");
+    const workingMode        = p("workingMode", "timer");
     const value              = pN("value", 0);
-    const duration           = pN("duration", 5000);
+    const duration           = pN("duration", 4000);
     const autoStart          = computed(() => props.content?.autoStart !== false);
     const loop               = computed(() => props.content?.loop === true);
     const steps              = pN("steps", 5);
     const currentStep        = pN("currentStep", 0);
 
     const showHeader         = computed(() => props.content?.showHeader !== false);
-    const label              = p("label", "Progress");
+    const label              = p("label", "Processing...");
     const showValue          = computed(() => props.content?.showValue !== false);
     const valueFormat        = p("valueFormat", "percent");
     const valueCustomText    = p("valueCustomText", "{value}%");
@@ -74,20 +74,20 @@ export default {
     // ── Style ─────────────────────────────────────────────────────────────
     const height          = pN("height", 8);
     const radius          = pN("radius", 999);
-    const trackColor      = p("trackColor", "#EDEFF3");
-    const fillColor       = p("fillColor", "#2B7FFF");
+    const trackColor      = p("trackColor", "#E2E8F0");
+    const fillColor       = p("fillColor", "#155DFC");
     const useGradient     = computed(() => props.content?.useGradient === true);
     const fillColorEnd    = p("fillColorEnd", "#51A2FF");
     const striped         = computed(() => props.content?.striped === true);
     const stripeAnimated  = computed(() => props.content?.stripeAnimated === true);
 
-    const labelColor      = p("labelColor", "#90A1B9");
+    const labelColor      = p("labelColor", "#62748E");
     const labelFontSize   = pN("labelFontSize", 14);
-    const labelFontWeight = p("labelFontWeight", "400");
+    const labelFontWeight = p("labelFontWeight", "500");
     const labelFontFamily = p("labelFontFamily", "");
-    const valueColor      = p("valueColor", "#2B7FFF");
+    const valueColor      = p("valueColor", "#155DFC");
     const valueFontSize   = pN("valueFontSize", 14);
-    const valueFontWeight = p("valueFontWeight", "600");
+    const valueFontWeight = p("valueFontWeight", "500");
     const valueFontFamily = p("valueFontFamily", "");
     const headerGap       = pN("headerGap", 8);
 
